@@ -76,7 +76,7 @@ public class ArtGallery {
      */
     if (current == null) {
       return false;
-    } else if (current.getData().compareTo(target) == 0) {
+    } else if (current.getData().equals(target)) {
       // Artwork is present in the tree
       return true;
     } else {
@@ -84,15 +84,11 @@ public class ArtGallery {
       // more than or less than
       if (target.compareTo(current.getData()) > 0) {
         // search right child
-        lookupHelper(target, current.getRight());
+        return lookupHelper(target, current.getRight());
       } else {
-        lookupHelper(target, current.getLeft());
+        return lookupHelper(target, current.getLeft());
       }
     }
-
-
-    return false; // Default return statement added to resolve compiler errors
-
   }
 
   /**
@@ -373,7 +369,7 @@ public class ArtGallery {
     // if current == null (empty subtree rooted at current), no match found, throw an exception
 
     if (current == null) {
-      throw new NoSuchElementException();
+      throw new NoSuchElementException(target + " not found in this gallery.");
     }
 
     // Compare the target to the data at current and proceed accordingly

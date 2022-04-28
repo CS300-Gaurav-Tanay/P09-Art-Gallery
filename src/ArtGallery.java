@@ -76,7 +76,7 @@ public class ArtGallery {
      */
     if (current == null) {
       return false;
-    } else if (current.getData().equals(target)) {
+    } else if (current.getData().compareTo(target) == 0) {
       // Artwork is present in the tree
       return true;
     } else {
@@ -115,7 +115,6 @@ public class ArtGallery {
       size++;
       return true;
     }
-
     return false;
   }
 
@@ -131,7 +130,7 @@ public class ArtGallery {
     // TODO complete the implementation of this method
     int compare = current.getData().compareTo(newArtwork);
 
-    if (current.getData().equals(newArtwork)) {
+    if (current.getData().compareTo(newArtwork) == 0) {
       return false;
     }
 
@@ -316,7 +315,6 @@ public class ArtGallery {
    * @throws NoSuchElementException with a descriptive error message if there is no Artwork found
    *                                with the buying criteria
    */
-
   public void buyArtwork(String name, int year, double cost) {
     Artwork artwork = new Artwork(name, year, cost);
     root = buyArtworkHelper(artwork, root);

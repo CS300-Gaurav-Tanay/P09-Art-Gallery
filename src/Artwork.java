@@ -102,7 +102,7 @@ public class Artwork implements Comparable<Artwork> {
   @Override public boolean equals(Object obj) {
     // TODO complete the implementation of this method
     if (obj instanceof Artwork) {
-      if ((this.getName().equals(((Artwork) obj).getName())) && (this.getCost() == ((Artwork) obj).getCost())) {
+      if ((this.getName().equals(((Artwork) obj).getName())) && (this.getYear() == ((Artwork) obj).getYear())) {
         return true;
       }
     }

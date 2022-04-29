@@ -1,3 +1,30 @@
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
+//
+// Title:    PO9 Art Gallery
+// Course:   CS 300 Spring 2022
+//
+// Author:   Tanay Nagar
+// Email:    tpnagar@wisc.edu
+// Lecturer: Mouna Kacem
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+//
+// Partner Name:    Gaurav Chopra
+// Partner Email:   gmchopra@wisc.edu
+// Partner Lecturer's Name: Mouna Kacem
+//
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+//   _X_ Write-up states that pair programming is allowed for this assignment.
+//   _X_ We have both read and understand the course Pair Programming Policy.
+//   _X_ We have registered our team prior to the team registration deadline.
+//
+///////////////////////// ALWAYS CREDIT OUTSIDE HELP //////////////////////////
+//
+// Persons:         NONE
+// Online Sources:  Zybooks, JournalDev, geeksforgeeks
+//
+///////////////////////////////////////////////////////////////////////////////
+
 /**
  * Generic class implementing a Binary Node of a Binary Search Tree (BST)
  *
@@ -32,7 +59,7 @@ public class BSTNode<T extends Comparable<T>> {
    * @throws NullPointerException if data is null
    */
   public BSTNode(T data, BSTNode<T> left, BSTNode<T> right) {
-    if(data == null)
+    if (data == null)
       throw new NullPointerException("data cannot be null");
     this.data = data;
     this.left = left;
@@ -83,5 +110,4 @@ public class BSTNode<T extends Comparable<T>> {
   public T getData() {
     return data;
   }
-
 }

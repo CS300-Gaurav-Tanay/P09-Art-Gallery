@@ -1,10 +1,36 @@
-// TODO Complete file header must be added here
-
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
+//
+// Title:    PO9 Art Gallery
+// Course:   CS 300 Spring 2022
+//
+// Author:   Tanay Nagar
+// Email:    tpnagar@wisc.edu
+// Lecturer: Mouna Kacem
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+//
+// Partner Name:    Gaurav Chopra
+// Partner Email:   gmchopra@wisc.edu
+// Partner Lecturer's Name: Mouna Kacem
+//
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+//   _X_ Write-up states that pair programming is allowed for this assignment.
+//   _X_ We have both read and understand the course Pair Programming Policy.
+//   _X_ We have registered our team prior to the team registration deadline.
+//
+///////////////////////// ALWAYS CREDIT OUTSIDE HELP //////////////////////////
+//
+// Persons:         NONE
+// Online Sources:  Zybooks, JournalDev, geeksforgeeks
+//
+///////////////////////////////////////////////////////////////////////////////
 
 /**
  * This class models an artwork piece
  *
  * @author Rajesh Shashi Kumar
+ * @author Tanay Nagar
+ * @author Gaurav Chopra
  */
 public class Artwork implements Comparable<Artwork> {
 
@@ -102,10 +128,14 @@ public class Artwork implements Comparable<Artwork> {
   @Override public boolean equals(Object obj) {
     // TODO complete the implementation of this method
     if (obj instanceof Artwork) {
-      if ((this.getName().equals(((Artwork) obj).getName())) && (this.getYear() == ((Artwork) obj).getYear())) {
+      // Checking if Object is an instance of Artwork
+      if ((this.getName().equals(((Artwork) obj).getName())) && (this.getYear()
+          == ((Artwork) obj).getYear())) {
+        // Year and name of both Artwork and obj is the same
         return true;
       }
     }
+    // obj not an instance or the year or name or both don't match
     return false; // Default return statement added to resolve compiler errors
   }
 
@@ -117,5 +147,4 @@ public class Artwork implements Comparable<Artwork> {
   public String toString() {
     return "[(Name: " + name + ") (Year: " + year + ") (Cost: $" + cost + ")]";
   }
-
 }

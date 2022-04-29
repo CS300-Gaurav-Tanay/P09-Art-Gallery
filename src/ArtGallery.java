@@ -1,4 +1,30 @@
-// TODO Complete file header must be added here
+//////////////// FILE HEADER (INCLUDE IN EVERY FILE) //////////////////////////
+//
+// Title:    PO9 Art Gallery
+// Course:   CS 300 Spring 2022
+//
+// Author:   Tanay Nagar
+// Email:    tpnagar@wisc.edu
+// Lecturer: Mouna Kacem
+//
+//////////////////// PAIR PROGRAMMERS COMPLETE THIS SECTION ///////////////////
+//
+// Partner Name:    Gaurav Chopra
+// Partner Email:   gmchopra@wisc.edu
+// Partner Lecturer's Name: Mouna Kacem
+//
+// VERIFY THE FOLLOWING BY PLACING AN X NEXT TO EACH TRUE STATEMENT:
+//   _X_ Write-up states that pair programming is allowed for this assignment.
+//   _X_ We have both read and understand the course Pair Programming Policy.
+//   _X_ We have registered our team prior to the team registration deadline.
+//
+///////////////////////// ALWAYS CREDIT OUTSIDE HELP //////////////////////////
+//
+// Persons:         NONE
+// Online Sources:  Zybooks, JournalDev, geeksforgeeks
+//
+///////////////////////////////////////////////////////////////////////////////
+
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -6,7 +32,8 @@ import java.util.NoSuchElementException;
  * This class models the Artwork Gallery implemented as a binary search tree. The search criteria
  * include the year of creation of the artwork, the name of the artwork and its cost.
  *
- * @author TODO add your name(s)
+ * @author Tanay Nagar
+ * @author Gaurav Chopra
  */
 public class ArtGallery {
   // Complete the TODO tags in this source file
@@ -49,7 +76,7 @@ public class ArtGallery {
 
     // Creating a new artwork to compare against
     Artwork targetArtwork = new Artwork(name, year, cost);
-
+    // Calling recursive helper method for lookUp
     return lookupHelper(targetArtwork, root);
 
     // TODO complete the implementation of this method
@@ -74,10 +101,13 @@ public class ArtGallery {
     Greater: search(right child)
     Less: search(left child)
      */
+
     if (current == null) {
+      // if current is null, element not found so returning false
       return false;
     } else if (current.getData().compareTo(target) == 0) {
-      // Artwork is present in the tree
+      // Compare checks for name, year and cost
+      // Artwork is present in the tree so match found thus returning true
       return true;
     } else {
       // Both the artworks are not equal so using compareTo to see if the target artwork is
@@ -86,6 +116,7 @@ public class ArtGallery {
         // search right child
         return lookupHelper(target, current.getRight());
       } else {
+        // search left child
         return lookupHelper(target, current.getLeft());
       }
     }
@@ -99,22 +130,28 @@ public class ArtGallery {
    * there is a match with this Artwork already stored in gallery.
    * @throws NullPointerException if newArtwork is null
    */
-  public boolean addArtwork(Artwork newArtwork) {
+  public boolean addArtwork(Artwork newArtwork) throws NullPointerException {
     // TODO complete the implementation of this method
     if (newArtwork == null) {
+      // The artwork to be added was null so throwing an exception
       throw new NullPointerException("The new artwork to be added is null");
     }
 
     if (isEmpty()) {
-      // root is null so add at root
-      root = new BSTNode<Artwork>(newArtwork);
-      size++;
+      // root is null (i.e. tree is empty) so add at root as first node
+      root = new BSTNode<Artwork>(newArtwork); // Assigning root reference to the newly created
+      // BSTNode<>
+      size++; // Incrementing size
+      // Node added so returning true
       return true;
     }
     if (addArtworkHelper(newArtwork, root)) {
-      size++;
+      // true: meaning artwork successfully added recursively by the recursive helper
+      size++; // Incrementing size
+      // Node added so returning true
       return true;
     }
+    // Node not added so returning false
     return false;
   }
 
@@ -128,28 +165,38 @@ public class ArtGallery {
    */
   protected static boolean addArtworkHelper(Artwork newArtwork, BSTNode<Artwork> current) {
     // TODO complete the implementation of this method
-    int compare = current.getData().compareTo(newArtwork);
+    int compare = current.getData().compareTo(newArtwork); // Comparing Artwork to be added and
+    // data at current node
 
     if (current.getData().compareTo(newArtwork) == 0) {
+      // Artwork found to be already present while recursively traversing through the tree
       return false;
     }
 
     if (compare < 0) {
+      // newArtwork's data is more than current
       if (current.getRight() == null) {
+        // Node on the right is null so adding artwork here
         current.setRight(new BSTNode<Artwork>(newArtwork));
+        // newArtwork successfully added so returning false
         return true;
       } else {
+        // Recursively searching for a spot to add the node in the right sub-tree
         return addArtworkHelper(newArtwork, current.getRight());
       }
     } else if (compare > 0) {
+      // newArtwork's data is less than current
       if (current.getLeft() == null) {
-        // Adding it there
+        // Node on the left is null so adding artwork here
         current.setLeft(new BSTNode<Artwork>(newArtwork));
+        // newArtwork successfully added so returning false
         return true;
       } else {
+        // Recursively searching for a spot to add the node in the left sub-tree
         return addArtworkHelper(newArtwork, current.getLeft());
       }
     } else {
+      //newArtwork already present so can't add it again so returning false
       return false;
     }
   }
@@ -168,10 +215,13 @@ public class ArtGallery {
       //  Tree is empty
       return null;
     } else {
+      // Keep going down tree to find rightmost node
       BSTNode<Artwork> currentNode = root;
       while (currentNode.getRight() != null) {
+        // shifting current pointer value to the right child of the current pointer
         currentNode = currentNode.getRight();
       }
+      // Have reached the final amd rightmost node so returning its data
       return currentNode.getData();
     }
   }
@@ -188,7 +238,8 @@ public class ArtGallery {
    * Returns an empty string "" if this BST is empty.
    */
   @Override public String toString() {
-    return toStringHelper(root);
+    // Calling recursive helper and returning what it returns after trimming the String
+    return toStringHelper(root).trim();
   }
 
   /**
@@ -206,14 +257,15 @@ public class ArtGallery {
     // Declaring local variables
     String result = "";
 
+    // Last node reached while recursively traversing the tree
     if (current == null) {
       return "";
     }
 
-
-    result += toStringHelper(current.getLeft());
-    result += current.getData().toString() + "\n";
-    result += toStringHelper(current.getRight());
+    // Algorithm for in-order traversal of the tree
+    result += toStringHelper(current.getLeft()); // traversing left sub-tree
+    result += current.getData().toString() + "\n"; // Adding toString of data in current node
+    result += toStringHelper(current.getRight()); // traversing right sub-tree
     return result; // Default return statement added to resolve compiler errors
   }
 
@@ -226,6 +278,7 @@ public class ArtGallery {
   public int height() {
     // TODO complete the implementation of this method
     if (isEmpty()) {
+      // Tree is empty and has no nodes so should return 0
       return 0;
     } else {
       return (heightHelper(root) + 1);
@@ -241,13 +294,14 @@ public class ArtGallery {
    */
   protected static int heightHelper(BSTNode<Artwork> current) {
     // TODO complete the implementation of this method
+    // Base Case: Reached end of longest link of nodes
     if (current == null) {
       return -1;
     }
-
+    // Recursive case
     int leftHeight = heightHelper(current.getLeft());
     int rightHeight = heightHelper(current.getRight());
-    return 1 + Math.max(leftHeight, rightHeight);
+    return (1 + Math.max(leftHeight, rightHeight));
   }
 
   /**
@@ -259,9 +313,8 @@ public class ArtGallery {
    * cost. If no artwork satisfies the lookup query, this method returns an empty arraylist
    */
   public ArrayList<Artwork> lookupAll(int year, double cost) {
+    // Calling recursive helper with the given parameters
     return lookupAllHelper(year, cost, root);
-    // TODO complete the implementation of this method
-    // return null; // Default return statement added to resolve compiler errors
   }
 
   /**
@@ -277,6 +330,7 @@ public class ArtGallery {
    */
   protected static ArrayList<Artwork> lookupAllHelper(int year, double cost,
       BSTNode<Artwork> current) {
+    // Creating a new ArrayList
     ArrayList<Artwork> artworkList = new ArrayList<>();
 
     // Just Traversing through the ArrayList
@@ -292,8 +346,9 @@ public class ArtGallery {
     return result;
      */
 
-    // base case (which will make the recursion stop)
-
+    // base case: when current is null
+    // recursive case: when current is not null, so keep traversing through the binary tree
+    // Traversing in pre-order (self-left-right)
     if (current != null) {
       if (current.getData().getYear() == year && current.getData().getCost() <= cost) {
         artworkList.add(current.getData());
@@ -303,7 +358,7 @@ public class ArtGallery {
     }
 
     // TODO complete the implementation of this method
-    return artworkList; // Default return statement added to resolve compiler errors
+    return artworkList;
   }
 
   /**
@@ -312,12 +367,16 @@ public class ArtGallery {
    *
    * @param name name of the artwork, artist
    * @param year creation year of artwork
+   * @param cost cost of the artwork being added
    * @throws NoSuchElementException with a descriptive error message if there is no Artwork found
    *                                with the buying criteria
    */
   public void buyArtwork(String name, int year, double cost) {
+    // Creating new artwork Object
     Artwork artwork = new Artwork(name, year, cost);
+    // Re-assigning root with the updated binary tree which has the removed root
     root = buyArtworkHelper(artwork, root);
+    // Declrementing size
     size--;
   }
 
@@ -402,8 +461,8 @@ public class ArtGallery {
 
       // current may have two children,
       else if (current.getRight() != null && current.getLeft() != null) {
-        BSTNode<Artwork> theNextOne = new BSTNode<Artwork>(getSuccessor(current),
-            current.getLeft(), current.getRight());
+        BSTNode<Artwork> theNextOne =
+            new BSTNode<Artwork>(getSuccessor(current), current.getLeft(), current.getRight());
         current = theNextOne;
         current.setRight(buyArtworkHelper(current.getData(), current.getRight()));
       }
@@ -432,84 +491,10 @@ public class ArtGallery {
   protected static Artwork getSuccessor(BSTNode<Artwork> node) {
     // TODO complete the implementation of this method
     BSTNode<Artwork> currNode = node.getRight();
-
+    // Finding left-most node in right sub-tree
     while (currNode.getLeft() != null) {
       currNode = currNode.getLeft();
     }
-    return currNode.getData(); // Default return statement added to resolve compiler errors
-  }
-
-  public static void main(String[] args) {
-    ArtGallery gallery = new ArtGallery();
-    System.out.println("Size: " + gallery.size() + " Height: " + gallery.height() + "\nGallery:");
-    System.out.println(gallery);
-    gallery.addArtwork(new Artwork("Guernica, Picasso", 1937, 3000));
-    gallery.addArtwork(new Artwork("Starry Night, Van Gogh", 1889, 2000));
-    System.out.println("==============================================================");
-    System.out.println("Size: " + gallery.size() + " Height: " + gallery.height() + "\nGallery:");
-    System.out.println(gallery);
-
-    gallery.addArtwork(new Artwork("NightHawks, Hopper", 1942, 4000));
-    gallery.addArtwork(new Artwork("Mona Lisa, DaVinci", 1503, 1000));
-    gallery.addArtwork(new Artwork("Whistler, Abbott", 1871, 5000));
-    gallery.addArtwork(new Artwork("Amazone, Tsalapatanis", 2021, 6080));
-
-    System.out.println("==============================================================");
-    System.out.println("Size: " + gallery.size() + " Height: " + gallery.height() + "\nGallery:");
-    System.out.println(gallery);
-    gallery.addArtwork(new Artwork("Persistence of Memory, Dali", 1931, 7000));
-    gallery.addArtwork(new Artwork("Der Schrei, Silber", 2019, 12160));
-    gallery.addArtwork(new Artwork("Gothic, Wood", 1930, 6000));
-    gallery.addArtwork(new Artwork("For gourmets, Tuzhilkina", 2021, 1280));
-    gallery.addArtwork(new Artwork("Cantabrico, Torices", 2021, 3870));
-
-    System.out.println("==============================================================");
-    System.out.println("Size: " + gallery.size() + " Height: " + gallery.height() + "\nGallery:");
-    System.out.println(gallery);
-    try {
-      System.out.println(
-          "This gallery contains (Mona Lisa, DaVinci, 1503, 1000): " + gallery.lookup(
-              "Mona Lisa, DaVinci", 1503, 1000));
-      System.out.println(
-          "This gallery contains (Whistler, Abbott, 1871, 5000): " + gallery.lookup(
-              "Whistler, Abbott", 1871, 5000));
-      System.out.println();
-      System.out.println(
-          "This gallery contains (Chaplin, Brainwash\", 2020, 9090): " + gallery.lookup(
-              "Chaplin, Brainwash", 2020, 9090));
-      System.out.println();
-      System.out.println("Best (greatest) artwork: " + gallery.getBestArtwork());
-      System.out.println();
-      System.out.println(
-          "Lookup query: search for the artworks of 2021 whose costs do not exceed $5000.00:");
-      System.out.println(gallery.lookupAll(2021, 5000));
-      System.out.println();
-      System.out.println(
-          "Lookup query: search for the artworks of 2021 whose costs do not exceed $10000.00:");
-      System.out.println(gallery.lookupAll(2021, 10000));
-      System.out.println();
-      System.out.println("Buy \"Der Schrei, Silber\", 2019, 12160:");
-      gallery.buyArtwork("Der Schrei, Silber", 2019, 12160);
-      System.out.println(
-          "Size: " + gallery.size() + " Height: " + gallery.height() + "\nGallery:");
-      System.out.println(gallery);
-      System.out.println();
-      System.out.println("Buy \"Mona Lisa, DaVinci\", 1503, 1000:");
-      gallery.buyArtwork("Mona Lisa, DaVinci", 1503, 1000);
-      System.out.println(
-          "Size: " + gallery.size() + " Height: " + gallery.height() + "\nGallery:");
-      System.out.println(gallery);
-      System.out.println();
-      System.out.println("Buy \"Guernica, Picasso\", 1937, 3000:");
-      gallery.buyArtwork("Guernica, Picasso", 1937, 3000);
-      System.out.println(
-          "Size: " + gallery.size() + " Height: " + gallery.height() + "\nGallery:");
-      System.out.println(gallery);
-      System.out.println();
-      System.out.println("Buy \"Mona Lisa, DaVinci\", 1503, 1000:");
-      gallery.buyArtwork("Mona Lisa, DaVinci", 1503, 1000);
-    } catch (NoSuchElementException e) {
-      System.out.println(e.getMessage());
-    }
+    return currNode.getData(); // returning last node reached
   }
 }

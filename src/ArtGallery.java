@@ -376,7 +376,7 @@ public class ArtGallery {
     Artwork artwork = new Artwork(name, year, cost);
     // Re-assigning root with the updated binary tree which has the removed root
     root = buyArtworkHelper(artwork, root);
-    // Declrementing size
+    // Decrementing size
     size--;
   }
 
